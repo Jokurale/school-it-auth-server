@@ -1,0 +1,11 @@
+.
+└── /
+    ├── /refresh
+    │   ├── Request: Refresh token in authorization header
+    │   └── Response: New access token or Error message
+    ├── /login
+    │   ├── Request: Login and password
+    │   └── Response: Token set (Access token and Refresh token) or Error message
+    └── /logout
+        ├── Request: Valid refresh token
+        └── Response: Operation result or Error message
