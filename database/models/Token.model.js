@@ -13,7 +13,7 @@ module.exports = mongoose.model(
         expires:
           60 *
           60 *
-          1 /* Each refresh token will expire after 24 hours unless logged out.*/,
+          1 /* Each refresh token will expire after 1 hour unless logged out.*/,
       },
     },
     { timestamps: true }
