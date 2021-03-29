@@ -16,7 +16,7 @@ Graphical representation will be available at README.ME of this [repo](https://g
 
 ## Potential further changes 🧭
 
-Quite high change of exchanging MongoDB Token.model for an robust redis store.
+Quite high chance of exchanging MongoDB Token.model for an robust redis store.
 
 ## Tests 📊
 
