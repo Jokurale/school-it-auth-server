@@ -5,8 +5,8 @@ require("dotenv").config({ path: "../.env" });
 const axios = require("axios").default;
 
 const meta = {
-  iss: "sdly-auth-server",
-  aud: "School managment system user",
+  iss: "sdly-school-it-auth-server",
+  aud: "sdly-school-it-resource-server",
 };
 
 module.exports = {
