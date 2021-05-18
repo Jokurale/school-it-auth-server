@@ -6,7 +6,6 @@ const route = express.Router();
 const ContainsPassAndLogin = require("../guards/ContainsPassAndLogin");
 const UserExists = require("../guards/UserExists");
 const PasswordIsValid = require("../guards/PasswordIsValid");
-const HasNoActiveToken = require("../guards/HasNoActiveToken");
 
 // *** Importing Token manager
 const { generate } = require("../tools/Token.tools");
@@ -20,7 +19,6 @@ route.post(
     /* Request */ ContainsPassAndLogin,
     /* and */ UserExists,
     /* and user's */ PasswordIsValid,
-    /* and user */ HasNoActiveToken,
   ],
   async (req, res) => {
     const { login } = req.body;

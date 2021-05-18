@@ -1,5 +1,4 @@
 const jwt = require("jsonwebtoken");
-const Tokens = require("../database/models/Token.model");
 require("dotenv").config({ path: "../.env" });
 
 const axios = require("axios").default;
@@ -49,9 +48,6 @@ module.exports = {
 
       const tokens = { accessToken, refreshToken };
 
-      // Saving new login-token pair to active token's pool
-      Tokens({ login, refreshToken }).save();
-
       return tokens;
     } catch (err) {
       console.log(err);
@@ -75,14 +71,6 @@ module.exports = {
 
     // *** Return verification result
     return verificationResult;
-  },
-
-  revoke: async (refreshToken) => {
-    // *** Remove refreshToken from database
-    const result = await Tokens.deleteOne({ refreshToken });
-
-    // *** Return result
-    return result;
   },
 
   refresh: async (login) => {
