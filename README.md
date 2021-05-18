@@ -1,14 +1,12 @@
 # school-it-auth-server 🌀
 
 ◼ Integrated with [_school-it-resource-api_](https://github.com/Jokurale/school-it-resource-api)
-.
 
 ## Implementation 👈
 
 This repo contains real implementation of this [auth-server](https://github.com/Jokurale/authorization-server)
 
-> Exchanged User.model to be handled with school-it-resource-api instead of mongoDB <br>
-> MongoDB now stores only already issued token-sets (token + login)
+> No more refresh-token storage, now authentication process is truly stateless.
 
 ## Backend implementation model 🗂
 
@@ -16,8 +14,41 @@ Graphical representation will be available at README.ME of this [repo](https://g
 
 ## Potential further changes 🧭
 
-Quite high chance of exchanging MongoDB Token.model for an robust redis store.
+No scheduled changes.
 
 ## Tests 📊
 
-Latest API coverage avilable on my git is still up to date.
+Latest API coverage covers up-to-date route map, including routes that have been excluded from handling.
+
+> When?
+>
+> > - during git hard reset to changes before REDIS Store implementation
+> >   What's been changed?
+> > - no more /logout path, and now user is able to request unlimited amount of tokens)
+
+## Route map 🎫
+
+<pre>
+. <br />
+└── / <br />
+    ├── /refresh <br />
+    │   ├── Request: Refresh token in authorization header <br />
+    │   └── Response: New access token or Error message <br />
+    └── /login <br />
+        ├── Request: Login and password <br />
+        └── Response: Token set (Access token and Refresh token) or Error message <br />
+</pre>
+
+## Built With 📐
+
+- NODE.JS
+- axios
+- bcrypt
+- body-parser
+- cors
+- dotenv
+- express
+- express-rate-limit
+- helmet
+- jsonwebtoken
+- morgan
