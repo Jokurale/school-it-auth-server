@@ -20,10 +20,11 @@ No scheduled changes.
 
 Latest API coverage covers up-to-date route map, including routes that have been excluded from handling.
 
-> When?
-> > - during git hard reset to changes before REDIS Store implementation
-> What's been changed?
-> > - no more /logout path, and now user is able to request unlimited amount of tokens)
+> When? <br>
+> * during git hard reset to changes before REDIS Store implementation <br>
+
+> What's been changed? <br>
+> * no more /logout path, and now user is able to request unlimited amount of tokens <br>
 
 ## Route map 🎫
 
