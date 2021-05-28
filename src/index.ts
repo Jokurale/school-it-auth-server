@@ -12,7 +12,8 @@ import helmet from "helmet";
 import cors from "cors";
 
 // *** .ENV
-require("dotenv").config({ path: "../.env" });
+import * as dotenv from "dotenv";
+dotenv.config({ path: "../.env" });
 
 // *** CORS
 app.use(cors());

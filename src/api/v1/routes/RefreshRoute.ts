@@ -1,5 +1,5 @@
 // *** Boilercode
-const express = require("express");
+import express from "express";
 const route = express.Router();
 
 // *** Import all the required route-guards
