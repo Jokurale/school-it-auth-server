@@ -38,8 +38,6 @@ module.exports = {
         role,
       };
 
-      console.log(JWT_ACCESS_EXPIRY_TIME, JWT_REFRESH_EXPIRY_TIME);
-
       // Payload-based access token generation
       const accessToken = jwt.sign({ ...meta, payload }, JWT_ACCESS_SECRET, {
         expiresIn: JWT_ACCESS_EXPIRY_TIME,
