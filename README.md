@@ -21,10 +21,12 @@ No scheduled changes.
 Latest API coverage covers up-to-date route map, including routes that have been excluded from handling.
 
 > When? <br>
-> * during git hard reset to changes before REDIS Store implementation <br>
+>
+> - during git hard reset to changes before REDIS Store implementation <br>
 
 > What's been changed? <br>
-> * no more /logout path, and now user is able to request unlimited amount of tokens <br>
+>
+> - no more /logout path, and now user is able to request unlimited amount of tokens <br>
 
 ## Route map 🎫
 
@@ -42,6 +44,8 @@ Latest API coverage covers up-to-date route map, including routes that have been
 ## Built With 📐
 
 - NODE.JS
+- ts-node
+- tsc
 - axios
 - bcrypt
 - body-parser
@@ -52,3 +56,4 @@ Latest API coverage covers up-to-date route map, including routes that have been
 - helmet
 - jsonwebtoken
 - morgan
+- definitelytyped 🙏
