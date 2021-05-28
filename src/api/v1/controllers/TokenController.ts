@@ -19,9 +19,7 @@ const login = async (req: Request, res: Response) => {
 const refresh = async (req: Request, res: Response) => {
   const token = req.token;
 
-  const result = (await verifyToken(token as string)) as
-    | JWTVerificationResult
-    | false;
+  const result = verifyToken(token as string) as JWTVerificationResult | false;
 
   if (result && "payload" in result) {
     const tokenResult = await refreshToken(result.payload.login);

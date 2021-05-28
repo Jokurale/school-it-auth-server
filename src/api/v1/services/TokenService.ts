@@ -63,7 +63,7 @@ const generateToken = async (login: Login) => {
   }
 };
 
-const verifyToken = async (token: Token) => {
+const verifyToken = (token: Token) => {
   // *** Prep result value
   let verificationResult;
 
