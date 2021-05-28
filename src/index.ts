@@ -13,7 +13,7 @@ import cors from "cors";
 
 // *** .ENV
 import * as dotenv from "dotenv";
-dotenv.config({ path: "../.env" });
+dotenv.config();
 
 // *** CORS
 app.use(cors());
