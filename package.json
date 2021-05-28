@@ -1,23 +1,20 @@
 {
-  "name": "authorization-server",
-  "version": "1.0.0",
-  "description": "AaaS cloud model for further jwt intergration",
-  "main": "server.js",
+  "name": "school-it-auth-server",
+  "version": "1.1.0",
+  "description": "JWT provider for school-it web application",
+  "main": "src/index.ts",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js"
+    "start": "ts-node ./src/index.js",
+    "dev": "nodemon --watch 'src/**' --ext 'ts,json' --ignore 'src/**/*.spec.ts' --ignore 'src/**/*.test.ts' --exec 'ts-node src/index.ts'"
   },
   "repository": {
     "type": "git",
-    "url": "authorization-server"
+    "url": "https://github.com/Jokurale/school-it-auth-server"
   },
   "keywords": [
     "auth",
-    "cloud",
     "service",
-    "aaas",
-    "jwt",
-    "oauth2"
+    "jwt"
   ],
   "author": "Michał Podsiadły <podsiadly.michal@protonmail.com>",
   "license": "MIT",
