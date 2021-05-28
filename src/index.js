@@ -6,6 +6,9 @@ const cors = require("cors");
 // *** Request-limiter import
 const rateLimit = require("express-rate-limit");
 
+// *** Any required middleware
+const { JSV } = require("./api/v1/middlewares");
+
 // *** .ENV
 require("dotenv").config();
 
@@ -27,15 +30,15 @@ app.use(require("helmet")());
 app.use(limiter);
 
 // *** Invalid JSON prevention
-app.use(require("./tools/JSONValidator.tools.js"));
+app.use(JSV);
 
 // *** Routes
-app.use(require("./routes/MasterRouter.js"));
+app.use(require("./api/v1/routes"));
 
 // *** 404
 app.use((req, res, next) => {
   const error = new Error("Not found");
-  error.status = 404;
+  res.status(404);
   next(error);
 });
 

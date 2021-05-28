@@ -1,19 +1,29 @@
 const jwt = require("jsonwebtoken");
-require("dotenv").config({ path: "../.env" });
+
+const {
+  JWT_ACCESS_EXPIRY_TIME,
+  JWT_ACCESS_SECRET,
+  JWT_REFRESH_EXPIRY_TIME,
+  JWT_REFRESH_SECRET,
+  RESOURCE_SERVER_PORT,
+  RESOURCE_SERVER_URL,
+  TOKEN_AUDIENCE,
+  TOKEN_ISSUER,
+} = require("../../../config/constants");
 
 const axios = require("axios").default;
 
 const meta = {
-  iss: "sdly-school-it-auth-server",
-  aud: "sdly-school-it-resource-server",
+  iss: TOKEN_ISSUER,
+  aud: TOKEN_AUDIENCE,
 };
 
 module.exports = {
-  generate: async (login) => {
+  generateToken: async (login) => {
     try {
       // *** Retrive user information from Resource Server
       const user = await axios.get(
-        `${process.env.RESOURCE_SERVER_URL}:${process.env.RESOURCE_SERVER_PORT}/auth/${login}`
+        `${RESOURCE_SERVER_URL}:${RESOURCE_SERVER_PORT}/auth/${login}`
       );
 
       // *** Extract required data from response
@@ -28,23 +38,17 @@ module.exports = {
         role,
       };
 
+      console.log(JWT_ACCESS_EXPIRY_TIME, JWT_REFRESH_EXPIRY_TIME);
+
       // Payload-based access token generation
-      const accessToken = jwt.sign(
-        { ...meta, payload },
-        process.env.JWT_ACCESS,
-        {
-          expiresIn: process.env.JWT_ACCESS_EXPIRY,
-        }
-      );
+      const accessToken = jwt.sign({ ...meta, payload }, JWT_ACCESS_SECRET, {
+        expiresIn: JWT_ACCESS_EXPIRY_TIME,
+      });
 
       // Payload-based refresh token generation
-      const refreshToken = jwt.sign(
-        { ...meta, payload },
-        process.env.JWT_REFRESH,
-        {
-          expiresIn: process.env.JWT_REFRESH_EXPIRY,
-        }
-      );
+      const refreshToken = jwt.sign({ ...meta, payload }, JWT_REFRESH_SECRET, {
+        expiresIn: JWT_REFRESH_EXPIRY_TIME,
+      });
 
       const tokens = { accessToken, refreshToken };
 
@@ -54,16 +58,13 @@ module.exports = {
     }
   },
 
-  verify: async (token, type = "refresh") => {
+  verifyToken: async (token) => {
     // *** Prep result value
     let verificationResult;
 
     // *** Try to verify incoming JWT token
     try {
-      verificationResult = jwt.verify(
-        token,
-        type === "refresh" ? process.env.JWT_REFRESH : process.env.JWT_ACCESS
-      );
+      verificationResult = jwt.verify(token, JWT_REFRESH_SECRET);
       // *** Catch potential fails
     } catch {
       verificationResult = false;
@@ -73,10 +74,10 @@ module.exports = {
     return verificationResult;
   },
 
-  refresh: async (login) => {
+  refreshToken: async (login) => {
     // *** Retrive user information from Resource Server
     const user = await axios.get(
-      `${process.env.RESOURCE_SERVER_URL}:${process.env.RESOURCE_SERVER_PORT}/auth/${login}`
+      `${RESOURCE_SERVER_URL}:${RESOURCE_SERVER_PORT}/auth/${login}`
     );
 
     // *** Extract required data from response
@@ -92,13 +93,9 @@ module.exports = {
     };
 
     // *** Sign new token
-    const newAccessToken = jwt.sign(
-      { ...meta, payload },
-      process.env.JWT_ACCESS,
-      {
-        expiresIn: process.env.JWT_ACCESS_EXPIRY,
-      }
-    );
+    const newAccessToken = jwt.sign({ ...meta, payload }, JWT_ACCESS_SECRET, {
+      expiresIn: JWT_ACCESS_EXPIRY_TIME,
+    });
 
     // *** Return new token
     return { accessToken: newAccessToken };

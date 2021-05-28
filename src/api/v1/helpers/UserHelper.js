@@ -1,13 +1,16 @@
-require("dotenv").config({ path: "../.env" });
-
 const axios = require("axios").default;
 
-module.exports = async function (login) {
+const {
+  RESOURCE_SERVER_URL,
+  RESOURCE_SERVER_PORT,
+} = require("../../../config/constants");
+
+module.exports = async function userExists(login) {
   login = login.trim().toLowerCase();
 
   try {
     const { data } = await axios.get(
-      `${process.env.RESOURCE_SERVER_URL}:${process.env.RESOURCE_SERVER_PORT}/auth/${login}`
+      `${RESOURCE_SERVER_URL}:${RESOURCE_SERVER_PORT}/auth/${login}`
     );
 
     if (data !== null) return true;
