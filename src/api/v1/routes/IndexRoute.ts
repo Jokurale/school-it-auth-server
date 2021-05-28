@@ -1,11 +1,11 @@
 // *** Boilercode
-const express = require("express");
+import express from "express";
 const route = express.Router();
 
 // Index controller
-const IndexController = require("../controllers/IndexController");
+import { IndexController } from "../controllers";
 
 // *** Index route
 route.get("/", IndexController.index);
 
-module.exports = route;
+export default route;

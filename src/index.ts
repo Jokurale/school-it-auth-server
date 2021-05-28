@@ -1,19 +1,20 @@
 // *** Bolier-plate code
-const express = require("express");
+import express, { Request, Response, NextFunction } from "express";
 const app = express();
-const cors = require("cors");
 
 // *** Request-limiter import
-const rateLimit = require("express-rate-limit");
+import rateLimit from "express-rate-limit";
 
 // *** Any required middleware
-const { JSV } = require("./api/v1/middlewares");
+import { JSV } from "./api/v1/middlewares";
+import morgan from "morgan";
+import helmet from "helmet";
+import cors from "cors";
 
 // *** .ENV
-require("dotenv").config();
+require("dotenv").config({ path: "../.env" });
 
 // *** CORS
-app.options(cors());
 app.use(cors());
 
 // *** Request-limiter config
@@ -24,25 +25,27 @@ const limiter = rateLimit({
 
 // *** Addons
 app.use(express.json());
-app.use(require("morgan")("dev"));
-app.use(require("helmet")());
+app.use(morgan("dev"));
+app.use(helmet());
 app.use(limiter);
 
 // *** Invalid JSON prevention
 app.use(JSV);
 
 // *** Routes
-app.use(require("./api/v1/routes"));
+import MasterRouter from "./api/v1/routes";
+
+app.use(MasterRouter);
 
 // *** 404
-app.use((req, res, next) => {
+app.use((req: Request, res: Response, next: NextFunction) => {
   const error = new Error("Not found");
   res.status(404);
   next(error);
 });
 
 // *** Error resolver
-app.use((error, req, res) => {
+app.use((error: StatusError, req: Request, res: Response) => {
   res.status(error.status || 500);
 
   res.json({

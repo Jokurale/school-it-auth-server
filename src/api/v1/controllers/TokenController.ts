@@ -1,0 +1,36 @@
+import { Request, Response } from "express";
+
+import { TokenService } from "../services";
+
+import { ErrorHelper } from "../helpers";
+import { UNPROCESSABLE_TOKEN } from "../../../config/constants";
+
+const { generateToken, verifyToken, refreshToken } = TokenService;
+
+// Routes and actions
+const login = async (req: Request, res: Response) => {
+  const { login } = req.body;
+
+  const tokens = await generateToken(login);
+
+  res.json(tokens);
+};
+
+const refresh = async (req: Request, res: Response) => {
+  const token = req.token;
+
+  const result = (await verifyToken(token as string)) as
+    | JWTVerificationResult
+    | Boolean;
+
+  if (result && "payload" in result) {
+    const tokenResult = await refreshToken(result.payload.login);
+
+    if (tokenResult) res.json(tokenResult);
+  } else ErrorHelper(res, UNPROCESSABLE_TOKEN);
+};
+
+export default {
+  login,
+  refresh,
+};

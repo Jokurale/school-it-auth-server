@@ -1,11 +1,11 @@
-const axios = require("axios").default;
+import axios from "axios";
 
-const {
+import {
   RESOURCE_SERVER_URL,
   RESOURCE_SERVER_PORT,
-} = require("../../../config/constants");
+} from "../../../config/constants";
 
-module.exports = async function userExists(login) {
+const userExists = async (login: Login) => {
   login = login.trim().toLowerCase();
 
   try {
@@ -19,3 +19,5 @@ module.exports = async function userExists(login) {
     return false;
   }
 };
+
+export default { userExists };

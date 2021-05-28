@@ -1,20 +1,20 @@
-// *** Password.tools serves as facade between code and real salting
+// *** Password helper takes role of facade between requests and password buisness logic
 
-const axios = require("axios").default;
+import axios from "axios";
 
-const bcrypt = require("bcrypt");
+import bcrypt from "bcrypt";
 
-const {
+import {
   PASSWORD_SALT,
   RESOURCE_SERVER_URL,
   RESOURCE_SERVER_PORT,
-} = require("../../../config/constants");
+} from "../../../config/constants";
 
-async function verify(password, hash) {
+const verify = async (password: Password, hash: PasswordHash) => {
   return await bcrypt.compare(password.trim() + PASSWORD_SALT, hash);
-}
+};
 
-async function isValid(login, password) {
+const isValid = async (login: Login, password: Password) => {
   login = login.trim().toLowerCase();
   password = password.trim();
 
@@ -27,6 +27,9 @@ async function isValid(login, password) {
   } catch (err) {
     return false;
   }
-}
+};
 
-module.exports = { verify, isValid };
+export default {
+  verify,
+  isValid,
+};

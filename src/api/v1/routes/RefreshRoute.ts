@@ -3,10 +3,10 @@ const express = require("express");
 const route = express.Router();
 
 // *** Import all the required route-guards
-const ContainsAuthToken = require("../middlewares/ContainsAuthToken");
+import { ContainsAuthToken } from "../middlewares";
 
 // *** Import controller
-const TokenController = require("../controllers/TokenController");
+import { TokenController } from "../controllers";
 
 route.post(
   "/refresh",
@@ -14,4 +14,4 @@ route.post(
   TokenController.refresh
 );
 
-module.exports = route;
+export default route;
