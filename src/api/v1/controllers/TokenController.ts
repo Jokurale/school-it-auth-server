@@ -21,7 +21,7 @@ const refresh = async (req: Request, res: Response) => {
 
   const result = (await verifyToken(token as string)) as
     | JWTVerificationResult
-    | Boolean;
+    | false;
 
   if (result && "payload" in result) {
     const tokenResult = await refreshToken(result.payload.login);
