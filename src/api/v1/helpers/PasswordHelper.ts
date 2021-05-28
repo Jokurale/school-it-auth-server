@@ -4,11 +4,7 @@ import axios from "axios";
 
 import bcrypt from "bcrypt";
 
-import {
-  PASSWORD_SALT,
-  RESOURCE_SERVER_URL,
-  RESOURCE_SERVER_PORT,
-} from "../../../config/constants";
+import { PASSWORD_SALT, RESOURCE_SERVER_URI } from "../../../config/constants";
 
 const verify = async (password: Password, hash: PasswordHash) => {
   return await bcrypt.compare(password.trim() + PASSWORD_SALT, hash);
@@ -19,9 +15,7 @@ const isValid = async (login: Login, password: Password) => {
   password = password.trim();
 
   try {
-    const { data } = await axios.get(
-      `${RESOURCE_SERVER_URL}:${RESOURCE_SERVER_PORT}/auth/${login}`
-    );
+    const { data } = await axios.get(RESOURCE_SERVER_URI + login);
 
     return await verify(password, data.credential.password);
   } catch (err) {

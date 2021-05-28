@@ -5,8 +5,7 @@ import {
   JWT_ACCESS_SECRET,
   JWT_REFRESH_EXPIRY_TIME,
   JWT_REFRESH_SECRET,
-  RESOURCE_SERVER_PORT,
-  RESOURCE_SERVER_URL,
+  RESOURCE_SERVER_URI,
   TOKEN_AUDIENCE,
   TOKEN_ISSUER,
 } from "../../../config/constants";
@@ -21,9 +20,7 @@ const meta = {
 const generateToken = async (login: Login) => {
   try {
     // *** Retrive user information from Resource Server
-    const user = await axios.get(
-      `${RESOURCE_SERVER_URL}:${RESOURCE_SERVER_PORT}/auth/${login}`
-    );
+    const user = await axios.get(RESOURCE_SERVER_URI + login);
 
     // *** Extract required data from response
     const { id, email, credential } = user.data;
@@ -81,9 +78,7 @@ const verifyToken = (token: Token) => {
 
 const refreshToken = async (login: Login) => {
   // *** Retrive user information from Resource Server
-  const user = await axios.get(
-    `${RESOURCE_SERVER_URL}:${RESOURCE_SERVER_PORT}/auth/${login}`
-  );
+  const user = await axios.get(RESOURCE_SERVER_URI + login);
 
   // *** Extract required data from response
   const { id, email, credential } = user.data;

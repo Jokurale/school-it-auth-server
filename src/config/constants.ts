@@ -47,3 +47,7 @@ export const JWT_REFRESH_EXPIRY_NO_UNIT =
 
 export const RESOURCE_SERVER_PORT = process.env.RESOURCE_SERVER_PORT;
 export const RESOURCE_SERVER_URL = process.env.RESOURCE_SERVER_URL;
+
+export const RESOURCE_SERVER_URI = `${String(RESOURCE_SERVER_URL)}:${String(
+  RESOURCE_SERVER_PORT
+)}/auth/`;
