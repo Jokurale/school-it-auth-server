@@ -7,7 +7,9 @@ import bcrypt from "bcrypt";
 import { PASSWORD_SALT, RESOURCE_SERVER_URI } from "../../../config/constants";
 
 const verify = async (password: Password, hash: PasswordHash) => {
-  return await bcrypt.compare(password.trim() + PASSWORD_SALT, hash);
+  const cmp = password.trim() + String(PASSWORD_SALT);
+
+  return await bcrypt.compare(cmp, hash);
 };
 
 const isValid = async (login: Login, password: Password) => {
