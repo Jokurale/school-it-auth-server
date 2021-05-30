@@ -1,19 +1,22 @@
 // *** Bolier-plate code
 import express, { Request, Response, NextFunction } from "express";
-const app = express();
+import MasterRouter from "./api/v1/routes";
 
 // *** Request-limiter import
 import rateLimit from "express-rate-limit";
 
-// *** Any required middleware
+// *** Required middlewares
+import * as dotenv from "dotenv";
 import { JSV } from "./api/v1/middlewares";
 import morgan from "morgan";
 import helmet from "helmet";
 import cors from "cors";
 
 // *** .ENV
-import * as dotenv from "dotenv";
 dotenv.config();
+
+// *** App instance
+const app = express();
 
 // *** CORS
 app.use(cors());
@@ -24,7 +27,7 @@ const limiter = rateLimit({
   max: 1000,
 });
 
-// *** Addons
+// *** Middleware
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(helmet());
@@ -34,8 +37,6 @@ app.use(limiter);
 app.use(JSV);
 
 // *** Routes
-import MasterRouter from "./api/v1/routes";
-
 app.use(MasterRouter);
 
 // *** 404
