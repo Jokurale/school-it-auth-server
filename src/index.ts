@@ -29,9 +29,10 @@ const limiter = rateLimit({
 
 // *** Middleware
 app.use(express.json());
-app.use(morgan("dev"));
 app.use(helmet());
 app.use(limiter);
+
+if (process.env.NODE_ENV !== "testing") app.use(morgan("dev"));
 
 // *** Invalid JSON prevention
 app.use(JSV);
@@ -57,9 +58,13 @@ app.use((error: StatusError, req: Request, res: Response) => {
 
 // *** Launch
 app.listen(process.env.DEV_PORT || 5000, () => {
-  console.log(
-    `[Auth Service] Auth service is up and running on port ${
-      process.env.DEV_PORT || 5000
-    }.`
-  );
+  if (process.env.NODE_ENV !== "testing")
+    console.log(
+      `[Auth Service] Auth service is up and running on port ${
+        process.env.DEV_PORT || 5000
+      }.` as const
+    );
 });
+
+// Testing purposes
+export { app };

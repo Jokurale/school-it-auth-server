@@ -5,6 +5,7 @@
   "main": "src/index.ts",
   "scripts": {
     "start": "ts-node ./src/index.ts",
+    "test": "npx mocha -r ts-node/register .\\tests\\*.test.ts -exit",
     "dev": "nodemon --watch 'src/**' --ext 'ts,json' --ignore 'src/**/*.spec.ts' --ignore 'src/**/*.test.ts' --exec 'ts-node src/index.ts'"
   },
   "repository": {
@@ -36,6 +37,7 @@
   "devDependencies": {
     "@types/axios": "^0.14.0",
     "@types/bcrypt": "^5.0.0",
+    "@types/chai": "^4.2.18",
     "@types/cors": "^2.8.10",
     "@types/express": "^4.17.12",
     "@types/express-rate-limit": "^5.1.1",
