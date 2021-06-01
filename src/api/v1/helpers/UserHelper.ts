@@ -2,7 +2,7 @@ import axios from "axios";
 
 import { RESOURCE_SERVER_URI } from "../../../config/constants";
 
-const userExists = async (login: Login) => {
+const userExists = async (login: Login): Promise<boolean> => {
   login = login.trim().toLowerCase();
 
   try {
