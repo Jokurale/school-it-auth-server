@@ -11,7 +11,7 @@ const JSV = (
   next: NextFunction
 ): void => {
   if (err instanceof SyntaxError && err.status == 400 && "body" in err) {
-    ErrorHelper(res, JSON_INVALID);
+    return ErrorHelper(res, JSON_INVALID);
   }
 
   next();
