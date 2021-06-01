@@ -7,7 +7,7 @@ const ContainsPassAndLogin = (
   req: Request,
   res: Response,
   next: NextFunction
-) => {
+): void => {
   if (req.body.login && req.body.password) next();
   else ErrorHelper(res, MISSING_PARAM);
 };

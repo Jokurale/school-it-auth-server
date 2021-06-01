@@ -9,9 +9,9 @@ const JSV = (
   req: Request,
   res: Response,
   next: NextFunction
-) => {
+): void => {
   if (err instanceof SyntaxError && err.status == 400 && "body" in err) {
-    return ErrorHelper(res, JSON_INVALID);
+    ErrorHelper(res, JSON_INVALID);
   }
 
   next();

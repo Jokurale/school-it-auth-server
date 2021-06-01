@@ -17,7 +17,9 @@ const meta = {
   aud: TOKEN_AUDIENCE,
 };
 
-const generateToken = async (login: Login) => {
+const generateToken = async (
+  login: Login
+): Promise<NewTokenSet | undefined> => {
   try {
     // *** Retrive user information from Resource Server
     const user = await axios.get(RESOURCE_SERVER_URI + login);
@@ -52,7 +54,7 @@ const generateToken = async (login: Login) => {
       }
     );
 
-    const tokens = { accessToken, refreshToken };
+    const tokens = { accessToken, refreshToken } as NewTokenSet;
 
     return tokens;
   } catch (err) {
@@ -60,7 +62,7 @@ const generateToken = async (login: Login) => {
   }
 };
 
-const verifyToken = (token: Token) => {
+const verifyToken = (token: Token): JWTVerificationResult | false => {
   // *** Prep result value
   let verificationResult;
 
@@ -73,10 +75,10 @@ const verifyToken = (token: Token) => {
   }
 
   // *** Return verification result
-  return verificationResult;
+  return verificationResult as JWTVerificationResult | false;
 };
 
-const refreshToken = async (login: Login) => {
+const refreshToken = async (login: Login): Promise<NewAccessToken> => {
   // *** Retrive user information from Resource Server
   const user = await axios.get(RESOURCE_SERVER_URI + login);
 

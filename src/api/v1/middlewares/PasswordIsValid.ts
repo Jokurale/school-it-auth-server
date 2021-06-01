@@ -9,7 +9,7 @@ const PasswordIsValid = async (
   req: Request,
   res: Response,
   next: NextFunction
-) => {
+): Promise<void> => {
   const { login, password } = req.body;
 
   if (await PasswordHelper.isValid(login, password)) next();

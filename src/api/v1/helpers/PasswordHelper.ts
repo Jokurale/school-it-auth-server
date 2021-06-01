@@ -6,13 +6,16 @@ import bcrypt from "bcrypt";
 
 import { PASSWORD_SALT, RESOURCE_SERVER_URI } from "../../../config/constants";
 
-const verify = async (password: Password, hash: PasswordHash) => {
+const verify = async (
+  password: Password,
+  hash: PasswordHash
+): Promise<boolean> => {
   const cmp = password.trim() + String(PASSWORD_SALT);
 
   return await bcrypt.compare(cmp, hash);
 };
 
-const isValid = async (login: Login, password: Password) => {
+const isValid = async (login: Login, password: Password): Promise<boolean> => {
   login = login.trim().toLowerCase();
   password = password.trim();
 

@@ -8,7 +8,7 @@ import { UNPROCESSABLE_TOKEN } from "../../../config/constants";
 const { generateToken, verifyToken, refreshToken } = TokenService;
 
 // Routes and actions
-const login = async (req: Request, res: Response) => {
+const login = async (req: Request, res: Response): Promise<void> => {
   const { login } = req.body;
 
   const tokens = await generateToken(login);
@@ -16,10 +16,10 @@ const login = async (req: Request, res: Response) => {
   res.json(tokens);
 };
 
-const refresh = async (req: Request, res: Response) => {
+const refresh = async (req: Request, res: Response): Promise<void> => {
   const token = req.token;
 
-  const result = verifyToken(token as string) as JWTVerificationResult | false;
+  const result = verifyToken(token as string);
 
   if (result && "payload" in result) {
     const tokenResult = await refreshToken(result.payload.login);

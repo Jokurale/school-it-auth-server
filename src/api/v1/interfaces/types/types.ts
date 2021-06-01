@@ -24,6 +24,15 @@ type JWTVerificationResult = {
   };
 };
 
+type NewAccessToken = {
+  accessToken: string;
+};
+
+type NewTokenSet = {
+  accessToken: string;
+  refreshToken: string;
+};
+
 // Attachment purposes
 declare namespace Express {
   export interface Request {
