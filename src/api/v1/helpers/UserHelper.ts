@@ -1,6 +1,7 @@
 import { RESOURCE_SERVER_URI } from "../../../config/constants";
 import axios from "axios";
 
+// TODO: Implement REDIS-based credentials cache
 const getUserCredentialInfo = async (
   login: Login
 ): Promise<false | UserCredentialsInfo> => {
