@@ -1,8 +1,7 @@
 import { Request, Response } from "express";
 
-import { TokenService } from "../services";
-
 import { ErrorHelper } from "../helpers";
+import { TokenService } from "../services";
 import { UNPROCESSABLE_TOKEN } from "../../../config/constants";
 
 const { generateToken, verifyToken, refreshToken } = TokenService;

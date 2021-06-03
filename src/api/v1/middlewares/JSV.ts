@@ -1,6 +1,7 @@
-import { Request, Response, NextFunction } from "express";
-import { JSON_INVALID } from "../../../config/constants";
+import { NextFunction, Request, Response } from "express";
+
 import { ErrorHelper } from "../helpers";
+import { JSON_INVALID } from "../../../config/constants";
 
 // *** This middleware ensures that invalid JSON requst won't crash whole app
 

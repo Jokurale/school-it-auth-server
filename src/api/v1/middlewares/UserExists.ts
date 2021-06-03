@@ -1,9 +1,8 @@
-import { Request, Response, NextFunction } from "express";
+import { NextFunction, Request, Response } from "express";
 
-import { UserHelper } from "../helpers";
 import { ErrorHelper } from "../helpers";
-
 import { USER_DOES_NOT_EXISTS } from "../../../config/constants";
+import { UserHelper } from "../helpers";
 
 const UserExists = async (
   req: Request,

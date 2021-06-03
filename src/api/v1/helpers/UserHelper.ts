@@ -1,18 +1,25 @@
+import { RESOURCE_SERVER_URI } from "../../../config/constants";
 import axios from "axios";
 
-import { RESOURCE_SERVER_URI } from "../../../config/constants";
-
-const userExists = async (login: Login): Promise<boolean> => {
-  login = login.trim().toLowerCase();
-
+const getUserCredentialInfo = async (
+  login: Login
+): Promise<false | UserCredentialsInfo> => {
   try {
-    const { data } = await axios.get(RESOURCE_SERVER_URI + login);
+    const response = await axios.get(RESOURCE_SERVER_URI + login);
 
-    if (data !== null) return true;
-    return false;
-  } catch (err) {
+    return response.data;
+  } catch {
     return false;
   }
 };
 
-export default { userExists };
+const userExists = async (login: Login): Promise<boolean> => {
+  login = login.trim().toLowerCase();
+
+  const credentials = await getUserCredentialInfo(login);
+
+  if (credentials) return true;
+  return false;
+};
+
+export { userExists, getUserCredentialInfo };

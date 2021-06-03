@@ -1,7 +1,7 @@
-import { Request, Response, NextFunction } from "express";
+import { NextFunction, Request, Response } from "express";
 
-import { MISSING_PARAM } from "../../../config/constants";
 import { ErrorHelper } from "../helpers";
+import { MISSING_PARAM } from "../../../config/constants";
 
 const ContainsPassAndLogin = (
   req: Request,

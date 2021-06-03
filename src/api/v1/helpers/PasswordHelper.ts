@@ -1,10 +1,8 @@
 // *** Password helper takes role of facade between requests and password buisness logic
 
-import axios from "axios";
-
+import { PASSWORD_SALT } from "../../../config/constants";
+import { UserHelper } from "./";
 import bcrypt from "bcrypt";
-
-import { PASSWORD_SALT, RESOURCE_SERVER_URI } from "../../../config/constants";
 
 const verify = async (
   password: Password,
@@ -19,13 +17,17 @@ const isValid = async (login: Login, password: Password): Promise<boolean> => {
   login = login.trim().toLowerCase();
   password = password.trim();
 
-  try {
-    const { data } = await axios.get(RESOURCE_SERVER_URI + login);
+  const credentials = await UserHelper.getUserCredentialInfo(login);
 
-    return await verify(password, data.credential.password);
-  } catch (err) {
-    return false;
+  if (credentials) {
+    const {
+      credential: { password: validPassword },
+    } = credentials;
+
+    return await verify(password, validPassword);
   }
+
+  return false;
 };
 
 export default {
