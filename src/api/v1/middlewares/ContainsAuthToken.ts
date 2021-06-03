@@ -1,7 +1,7 @@
-import { Request, Response, NextFunction } from "express";
+import { NextFunction, Request, Response } from "express";
 
-import { TOKEN_MISSING } from "../../../config/constants";
 import { ErrorHelper } from "../helpers";
+import { TOKEN_MISSING } from "../../../config/constants";
 
 const ContainsAuthToken = (
   req: Request,

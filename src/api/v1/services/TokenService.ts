@@ -1,16 +1,14 @@
-import jwt from "jsonwebtoken";
-
 import {
   JWT_ACCESS_EXPIRY_TIME,
   JWT_ACCESS_SECRET,
   JWT_REFRESH_EXPIRY_TIME,
   JWT_REFRESH_SECRET,
-  RESOURCE_SERVER_URI,
   TOKEN_AUDIENCE,
   TOKEN_ISSUER,
 } from "../../../config/constants";
 
-import axios from "axios";
+import { UserHelper } from "../helpers";
+import jwt from "jsonwebtoken";
 
 const meta = {
   iss: TOKEN_ISSUER,
@@ -20,18 +18,17 @@ const meta = {
 const generateToken = async (
   login: Login
 ): Promise<NewTokenSet | undefined> => {
-  try {
-    // *** Retrive user information from Resource Server
-    const user = await axios.get(RESOURCE_SERVER_URI + login);
+  // *** Retrive user information from Resource Server
+  const credentials = await UserHelper.getUserCredentialInfo(login);
 
-    // *** Extract required data from response
-    const { id, email, credential } = user.data;
+  // *** Extract required data from response
+  if (credentials) {
+    const { id, credential } = credentials;
     const { role } = credential;
 
     // *** Prepare JWT payload
     const payload = {
       id,
-      email,
       login,
       role,
     };
@@ -57,8 +54,6 @@ const generateToken = async (
     const tokens = { accessToken, refreshToken } as NewTokenSet;
 
     return tokens;
-  } catch (err) {
-    console.log(err);
   }
 };
 
@@ -78,33 +73,37 @@ const verifyToken = (token: Token): JWTVerificationResult | false => {
   return verificationResult as JWTVerificationResult | false;
 };
 
-const refreshToken = async (login: Login): Promise<NewAccessToken> => {
+const refreshToken = async (
+  login: Login
+): Promise<NewAccessToken | undefined> => {
   // *** Retrive user information from Resource Server
-  const user = await axios.get(RESOURCE_SERVER_URI + login);
+  const credentials = await UserHelper.getUserCredentialInfo(login);
 
   // *** Extract required data from response
-  const { id, email, credential } = user.data;
-  const { role } = credential;
+  if (credentials) {
+    const { id, credential } = credentials;
+    const { role } = credential;
 
-  // *** Prepare JWT payload
-  const payload = {
-    id,
-    email,
-    login,
-    role,
-  };
+    // *** Prepare JWT payload
+    const payload = {
+      id,
+      login,
+      role,
+    };
 
-  // *** Sign new token
-  const newAccessToken = jwt.sign(
-    { ...meta, payload },
-    JWT_ACCESS_SECRET as string,
-    {
-      expiresIn: JWT_ACCESS_EXPIRY_TIME,
-    }
-  );
+    // Payload-based access token generation
+    const accessToken = jwt.sign(
+      { ...meta, payload },
+      JWT_ACCESS_SECRET as string,
+      {
+        expiresIn: JWT_ACCESS_EXPIRY_TIME,
+      }
+    );
 
-  // *** Return new token
-  return { accessToken: newAccessToken };
+    const token = { accessToken };
+
+    return token;
+  }
 };
 
 export default {

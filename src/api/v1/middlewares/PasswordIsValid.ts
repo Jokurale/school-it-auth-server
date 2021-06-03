@@ -1,9 +1,8 @@
-import { Request, Response, NextFunction } from "express";
+import { NextFunction, Request, Response } from "express";
 
-import { PasswordHelper } from "../helpers";
 import { ErrorHelper } from "../helpers";
-
 import { PASSWORD_INVALID } from "../../../config/constants";
+import { PasswordHelper } from "../helpers";
 
 const PasswordIsValid = async (
   req: Request,

@@ -33,6 +33,20 @@ type NewTokenSet = {
   refreshToken: string;
 };
 
+type UserCredentialsInfo = {
+  id: string;
+  credential: {
+    id: string;
+    login: string;
+    password: string;
+    role: string;
+    userId: string;
+  };
+  student?: {
+    id: string;
+    userId: string;
+  };
+};
 // Attachment purposes
 declare namespace Express {
   export interface Request {

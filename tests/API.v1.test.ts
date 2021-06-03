@@ -1,9 +1,8 @@
+import { app } from "../src/index";
 import chai from "chai";
 import chaiHttp from "chai-http";
 
 const expect = chai.expect;
-
-import { app } from "../src/index";
 
 process.env.NODE_ENV = "testing";
 
@@ -30,7 +29,7 @@ const INVALID_USER = {
 
 let refreshToken = "";
 
-describe("API works as intended with no side effect", () => {
+describe("API V1 Tests", () => {
   describe("/", () => {
     it("Receives valid response at GET /", (done) => {
       chai

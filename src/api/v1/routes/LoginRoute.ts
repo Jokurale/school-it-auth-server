@@ -1,16 +1,15 @@
 // *** Boilercode
-import express from "express";
-const route = express.Router();
 
-// *** Import all the required route-guards
 import {
   ContainsPassAndLogin,
-  UserExists,
   PasswordIsValid,
+  UserExists,
 } from "../middlewares";
 
-// *** Import controller
 import { TokenController } from "../controllers";
+import express from "express";
+
+const route = express.Router();
 
 route.post(
   "/login",
