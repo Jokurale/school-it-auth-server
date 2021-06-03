@@ -22,7 +22,7 @@ No scheduled changes.
 npm run tests
 ```
 
-> Mocha test runner will use Chai lib, use default app export run general tests
+> Mocha test runner will run all \**/*.test.ts files from "./tests" directory
 
 ## Route map 🎫
 
