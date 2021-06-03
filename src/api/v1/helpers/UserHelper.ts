@@ -22,4 +22,4 @@ const userExists = async (login: Login): Promise<boolean> => {
   return false;
 };
 
-export { userExists, getUserCredentialInfo };
+export default { userExists, getUserCredentialInfo };
