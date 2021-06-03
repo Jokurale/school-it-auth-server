@@ -18,15 +18,11 @@ No scheduled changes.
 
 ## Tests 📊
 
-Latest API coverage covers up-to-date route map, including routes that have been excluded from handling.
+```console
+npm run tests
+```
 
-> When? <br>
->
-> - during git hard reset to changes before REDIS Store implementation <br>
-
-> What's been changed? <br>
->
-> - no more /logout path, and now user is able to request unlimited amount of tokens <br>
+> Mocha test runner will use Chai lib, use default app export run general tests
 
 ## Route map 🎫
 
@@ -43,7 +39,7 @@ Latest API coverage covers up-to-date route map, including routes that have been
 
 ## Built With 📐
 
-- NODE.JS
+- node.js
 - ts-node
 - tsc
 - axios
@@ -57,3 +53,6 @@ Latest API coverage covers up-to-date route map, including routes that have been
 - jsonwebtoken
 - morgan
 - definitelytyped 🙏
+- mocha
+- chai
+- chai-http
