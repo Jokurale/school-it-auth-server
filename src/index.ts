@@ -1,5 +1,3 @@
-// *** Bolier-plate code
-
 import * as dotenv from "dotenv";
 
 import express, { NextFunction, Request, Response } from "express";
@@ -10,16 +8,6 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import rateLimit from "express-rate-limit";
-
-// *** Request-limiter import
-
-
-// *** Required middlewares
-
-
-
-
-
 
 // *** .ENV
 dotenv.config();
