@@ -106,7 +106,12 @@ const refreshToken = async (
       }
     );
 
-    const token = { accessToken };
+    const token = {
+      accessToken,
+      accessTokenExpiry:
+        process.env.JWT_ACCESS_EXPIRY_NO_UNIT &&
+        +process.env.JWT_ACCESS_EXPIRY_NO_UNIT,
+    };
 
     return token;
   }

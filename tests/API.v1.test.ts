@@ -178,6 +178,7 @@ describe("API V1 Tests", () => {
           expect(res.body).to.have.not.property("message");
           expect(res.body).to.have.not.property("error");
           expect(res.body).to.have.property("accessToken");
+          expect(res.body).to.have.property("accessTokenExpiry");
           done();
         });
     });
