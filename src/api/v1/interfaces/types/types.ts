@@ -31,6 +31,7 @@ type NewAccessToken = {
 type NewTokenSet = {
   accessToken: string;
   refreshToken: string;
+  accessTokenExpiry: string | number;
 };
 
 type UserCredentialsInfo = {

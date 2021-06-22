@@ -51,7 +51,13 @@ const generateToken = async (
       }
     );
 
-    const tokens = { accessToken, refreshToken } as NewTokenSet;
+    const tokens = {
+      accessToken,
+      refreshToken,
+      accessTokenExpiry:
+        process.env.JWT_ACCESS_EXPIRY_NO_UNIT &&
+        +process.env.JWT_ACCESS_EXPIRY_NO_UNIT,
+    } as NewTokenSet;
 
     return tokens;
   }

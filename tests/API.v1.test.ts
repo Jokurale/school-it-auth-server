@@ -119,6 +119,7 @@ describe("API V1 Tests", () => {
           expect(res.body).to.be.an("object");
           expect(res.body).to.have.property("accessToken");
           expect(res.body).to.have.property("refreshToken");
+          expect(res.body).to.have.property("accessTokenExpiry");
           expect(res.body).to.not.have.property("error");
 
           // Asign refresh token for further use
